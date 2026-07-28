@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sina Mazarei</title>
+<style>
+  :root{
+    --bg: #fbfaf7;
+    --ink: #1c1c1c;
+    --muted: #6b6b66;
+    --accent: #35507a;   /* muted indigo-blue, nods to CV bounding boxes without being neon */
+    --line: #dcd8ce;
+    --card: #ffffff;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+    font-size: 17px;
+  }
+
+  .wrap{
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+
+  /* ---------- header ---------- */
+  .header{
+    display:flex;
+    gap: 32px;
+    align-items:flex-start;
+    margin-bottom: 48px;
+  }
+
+  .photo-frame{
+    position: relative;
+    width: 132px;
+    height: 132px;
+    flex: none;
+  }
+
+  .photo-frame .corner{
+    position:absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--accent);
+  }
+  .corner.tl{ top:-6px; left:-6px; border-right:none; border-bottom:none; }
+  .corner.tr{ top:-6px; right:-6px; border-left:none; border-bottom:none; }
+  .corner.bl{ bottom:-6px; left:-6px; border-right:none; border-top:none; }
+  .corner.br{ bottom:-6px; right:-6px; border-left:none; border-top:none; }
+
+  .avatar{
+    width:100%;
+    height:100%;
+    border-radius: 4px;
+    background: linear-gradient(160deg, #eef1f6, #dfe4ec);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+    font-size: 34px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    overflow: hidden;
+  }
+  .avatar img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+  }
+
+  .tag{
+    position:absolute;
+    bottom: 6px;
+    left: 6px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(255,255,255,0.85);
+    padding: 1px 5px;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+  }
+
+  h1{
+    font-size: 30px;
+    margin: 0 0 10px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+  }
+
+  .bio{
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+
+  .links{
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .links a{
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .links a:hover, .links a:focus{
+    border-bottom-color: var(--accent);
+  }
+  .links .sep{ color: var(--line); margin: 0 8px; }
+
+  /* ---------- section titles ---------- */
+  .section-title{
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+    margin: 40px 0 20px;
+  }
+
+  /* ---------- projects ---------- */
+  .project{
+    display:flex;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .project:last-child{ border-bottom: none; }
+
+  .project-thumb{
+    flex: none;
+    width: 96px;
+    height: 72px;
+    border-radius: 3px;
+    background: #eef1f6;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-thumb::before{
+    content:"";
+    position:absolute;
+    inset: 14px;
+    border: 1.5px dashed var(--accent);
+    opacity: 0.55;
+    border-radius: 2px;
+  }
+  .project-thumb::after{
+    content: attr(data-tag);
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .project-body h3{
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .project-body h3 a{
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .project-body h3 a:hover{
+    color: var(--accent);
+  }
+
+  .project-meta{
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .project-meta a{
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .project-desc{
+    font-size: 15px;
+    color: #3a3a36;
+    margin: 0;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top: 56px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  @media (max-width: 560px){
+    .header{ flex-direction: column; align-items:flex-start; }
+    .project{ flex-direction: column; }
+    .project-thumb{ width: 100%; height: 90px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="header">
+      <div class="photo-frame">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+        <div class="avatar">
+          <!-- Replace this with <img src="your-photo.jpg" alt="Sina Mazarei"> when you have one -->
+          SM
+        </div>
+        <div class="tag">photo</div>
+      </div>
+
+      <div>
+        <h1>Sina Mazarei</h1>
+        <p class="bio">
+          I'm an MSc student focused on machine learning, with a particular interest
+          in computer vision. I enjoy working across classical algorithms and modern
+          deep learning methods, and I'm always looking to collaborate on interesting
+          ML projects.
+        </p>
+        <div class="links">
+          <a href="mailto:sinamazarei1378@gmail.com">Email</a>
+          <span class="sep">/</span>
+          <a href="https://github.com/sina-mzr" target="_blank" rel="noopener">GitHub</a>
+          <span class="sep">/</span>
+          <a href="https://www.linkedin.com/in/sina-mazarei-826b58173/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Projects</div>
+
+    <div class="project">
+      <div class="project-thumb" data-tag="notebook"></div>
+      <div class="project-body">
+        <h3><a href="https://github.com/sina-mzr/point-processing" target="_blank" rel="noopener">Point Processing</a></h3>
+        <div class="project-meta"><a href="https://github.com/sina-mzr/point-processing" target="_blank" rel="noopener">Code</a></div>
+        <p class="project-desc">
+          A set of image point-processing techniques implemented in Jupyter notebooks,
+          covering pixel-level transformations, histogram operations, and spatial
+          filtering fundamentals in computer vision.
+        </p>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-thumb" data-tag="notebook"></div>
+      <div class="project-body">
+        <h3><a href="https://github.com/sina-mzr/linear-and-logistic-regression" target="_blank" rel="noopener">Linear and Logistic Regression</a></h3>
+        <div class="project-meta"><a href="https://github.com/sina-mzr/linear-and-logistic-regression" target="_blank" rel="noopener">Code</a></div>
+        <p class="project-desc">
+          From-scratch implementations of linear and logistic regression, exploring
+          the core optimization and classification ideas behind classical machine
+          learning models.
+        </p>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-thumb" data-tag="notebook"></div>
+      <div class="project-body">
+        <h3><a href="https://github.com/sina-mzr/academic-cv" target="_blank" rel="noopener">Academic CV</a></h3>
+        <div class="project-meta"><a href="https://github.com/sina-mzr/academic-cv" target="_blank" rel="noopener">Code</a></div>
+        <p class="project-desc">
+          A repository for generating and maintaining an academic CV, kept in sync
+          with ongoing coursework and project work.
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      Built with a simple static template. Fork it, add photos and papers, and
+      host it for free on GitHub Pages.
+    </footer>
+
+  </div>
+</body>
+</html>
